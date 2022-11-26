@@ -14,7 +14,7 @@ public abstract class PlayerController : MonoBehaviour
     [SerializeField] protected MovementType movementType;
     private CharacterController _characterController;
 
-    private Rigidbody2D _rb;
+    protected Rigidbody2D _rb;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 10f;
     private bool _isJump;
@@ -40,6 +40,7 @@ public abstract class PlayerController : MonoBehaviour
         {
             PlayerAction();
         }
+
         if (movementType == MovementType.Keyboard)
         {
             if (Input.GetButtonDown("Jump") && IsDownGround())
@@ -106,15 +107,6 @@ public abstract class PlayerController : MonoBehaviour
         {
             Destroy(gameObject);
             SceneManager.LoadScene(0);
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag.Equals("Enemy"))
-        {
-            var enemy = FindObjectOfType<EnemyController>();
-            Damage(enemy.damageLevel);
         }
     }
 

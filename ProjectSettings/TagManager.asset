@@ -5,8 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - GameGround
-  - collector player
-  - CollectorPlayer
+  - Cat
+  - Enemy
   layers:
   - Default
   - TransparentFX

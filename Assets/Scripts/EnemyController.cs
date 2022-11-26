@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var player = GameObject.FindWithTag("CollectorPlayer");
+        var player = GameObject.Find("Collector");
         var horizontal = player.transform.position;
         var objectHorizontal = transform.position;
         var difference = horizontal.x - objectHorizontal.x;
@@ -43,6 +43,15 @@ public class EnemyController : MonoBehaviour
         else if (isJump)
         {
             isJump = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag.Equals("Player"))
+        {
+            var enemy = FindObjectOfType<EnemyController>();
+            Damage(enemy.damageLevel);
         }
     }
 
