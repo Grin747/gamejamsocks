@@ -3234,8 +3234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c56c350709a4d9182462c5f7812813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 100
-  jumpForce: 10
+  speed: 35
+  jumpForce: 12
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -3354,7 +3354,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!1 &1824654472
 GameObject:
   m_ObjectHideFlags: 0
