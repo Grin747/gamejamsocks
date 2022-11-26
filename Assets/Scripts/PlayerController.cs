@@ -1,15 +1,32 @@
 // ReSharper disable ArrangeTypeMemberModifiers
+
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D _rb;
+    protected enum MovementType
+    {
+        Keyboard,
+        Controller
+    }
+
+    [SerializeField] protected MovementType movementType;
+    private CharacterController _characterController;
+
+    protected Rigidbody2D _rb;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 10f;
     private bool _isJump;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform groundCheck;
+    [SerializeField] protected int health;
     public EntityFacing Facing { get; private set; }
+
+    public void Damage(int damage) => health -= damage;
+    private bool isOnGround;
+    private float x;
+    private Vector2 velocity;
 
     void Start()
     {
@@ -19,31 +36,78 @@ public abstract class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Jump") && IsDownGround())
+        if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire1Gamepad"))
         {
-            _rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            PlayerAction();
+        }
+
+        if (movementType == MovementType.Keyboard)
+        {
+            if (Input.GetButtonDown("Jump") && IsDownGround())
+            {
+                _rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            }
+
+            //keyboardmovement
+            x = Input.GetAxis("Horizontal");
+
+            // Vector2 move = transform.right * x;
+
+            // characterController.Move(move * speed * Time.deltaTime);
+
+            // characterController.Move(velocity * Time.deltaTime);
+            var horizontal = x * speed;
+            _rb.AddForce(new Vector2(horizontal, 0));
+        }
+        else
+        {
+            if (movementType == MovementType.Controller)
+            {
+                x = Input.GetAxis("HorizontalGamepad");
+                if (Input.GetButtonDown("JumpGamepad") && IsDownGround())
+                {
+                    _rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                }
+
+                var horizontal = x * speed;
+                _rb.AddForce(new Vector2(horizontal, 0));
+            }
+        }
+    }
+
+    protected abstract void PlayerAction();
+
+    private void Flip(float horizontal)
+    {
+        if (Facing == EntityFacing.Right && horizontal < 0)
+        {
+            Facing = EntityFacing.Left;
+            transform.Rotate(0f, 180f, 0f);
+        }
+        else if (Facing == EntityFacing.Left && horizontal > 0)
+        {
+            Facing = EntityFacing.Right;
+            transform.Rotate(0f, 180f, 0f);
         }
     }
 
     private void FixedUpdate()
     {
-        var horizontal = Input.GetAxis("Horizontal") * speed;
+        var horizontal = movementType == MovementType.Controller
+            ? Input.GetAxis("HorizontalGamepad")
+            : Input.GetAxis("Horizontal");
         Flip(horizontal);
-        _rb.velocity = new Vector2(horizontal, _rb.velocity.y);
+        // _rb.velocity = new Vector2(horizontal, _rb.velocity.y);
+        CheckAlive();
     }
 
-    private void Flip(float horizontal)
+    private void CheckAlive()
     {
-        if (Facing == EntityFacing.Right && horizontal > 0)
+        if (health <= 0)
         {
-            Facing = EntityFacing.Left;
+            Destroy(gameObject);
+            SceneManager.LoadScene(0);
         }
-        else
-        {
-            Facing = EntityFacing.Right;
-        }
-
-        transform.Rotate(0f, 180f, 0f);
     }
 
     private bool IsDownGround() => Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);

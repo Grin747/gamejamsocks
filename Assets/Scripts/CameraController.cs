@@ -1,6 +1,5 @@
 // ReSharper disable ArrangeTypeMemberModifiers
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
 {

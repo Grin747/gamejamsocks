@@ -18,5 +18,12 @@ public class Bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (col.gameObject.tag.Equals("Enemy"))
+        {
+            var enemyObject = FindObjectOfType<EnemyController>();
+            enemyObject.Damage(2);
+            Destroy(gameObject);
+        }
     }
 }
