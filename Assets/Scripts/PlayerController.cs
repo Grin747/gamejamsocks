@@ -1,23 +1,20 @@
 // ReSharper disable ArrangeTypeMemberModifiers
-
-using DefaultNamespace;
 using UnityEngine;
 
 public abstract class PlayerController : MonoBehaviour
 {
     private Rigidbody2D _rb;
-    [SerializeField] private float speed = 15f;
+    [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 10f;
     private bool _isJump;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform groundCheck;
-    private EntityFacing _facing;
-    public EntityFacing Facing => _facing;
+    public EntityFacing Facing { get; private set; }
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _facing = EntityFacing.RIGHT;
+        Facing = EntityFacing.Right;
     }
 
     void Update()
@@ -32,18 +29,18 @@ public abstract class PlayerController : MonoBehaviour
     {
         var horizontal = Input.GetAxis("Horizontal") * speed;
         Flip(horizontal);
-        _rb.AddForce(new Vector2(horizontal, 0));
+        _rb.velocity = new Vector2(horizontal, _rb.velocity.y);
     }
 
     private void Flip(float horizontal)
     {
-        if (_facing == EntityFacing.RIGHT && horizontal > 0)
+        if (Facing == EntityFacing.Right && horizontal > 0)
         {
-            _facing = EntityFacing.LEFT;
+            Facing = EntityFacing.Left;
         }
         else
         {
-            _facing = EntityFacing.RIGHT;
+            Facing = EntityFacing.Right;
         }
 
         transform.Rotate(0f, 180f, 0f);

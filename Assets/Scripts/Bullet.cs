@@ -1,16 +1,15 @@
-using DefaultNamespace;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private float speed = 25f;
-    private Rigidbody2D rb;
+    [SerializeField] private float speed = 25f;
+    private Rigidbody2D _rb;
     private EntityFacing _facing;
 
     private void Start()
     {
-        this.rb = GetComponent<Rigidbody2D>();
-        rb.velocity = transform.right * speed;
+        _rb = GetComponent<Rigidbody2D>();
+        _rb.velocity = transform.right * speed;
     }
 
     private void OnCollisionEnter2D(Collision2D col)

@@ -1,8 +1,5 @@
-namespace DefaultNamespace
+public enum EntityFacing
 {
-    public enum EntityFacing
-    {
-        RIGHT,
-        LEFT
-    }
+    Right,
+    Left
 }
