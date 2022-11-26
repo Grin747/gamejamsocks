@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    [SerializeField] public float speed = 30f;
-    [SerializeField] private float JumpForce = 5f;
+    private Rigidbody2D _rigidbody;
+    [SerializeField] private float speed = 5f;
+    [SerializeField] private float jumpForce = 10f;
     private bool _isJump;
-    [SerializeField] private LayerMask GroundLayer;
+    [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform groundCheck;
 
     private void Start()
     {
-        this.rb = GetComponent<Rigidbody2D>();
+        this._rigidbody = GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -20,9 +20,9 @@ public class PlayerController : MonoBehaviour
         transform.position += new Vector3(horizontal, 0, 0) * Time.deltaTime * speed;
         if (Input.GetButtonDown("Jump") && IsDownGround())
         {
-            rb.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
+            _rigidbody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
     }
 
-    private bool IsDownGround() => Physics2D.OverlapCircle(groundCheck.position, 0.2f, GroundLayer);
+    private bool IsDownGround() => Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
 }
