@@ -5,14 +5,14 @@ using UnityEngine.SceneManagement;
 
 public abstract class PlayerController : MonoBehaviour
 {
-    public enum MovementType
+    private enum MovementType
     {
-        keyboard,
-        controller
+        Keyboard,
+        Controller
     }
 
-    public MovementType movementType;
-    public CharacterController characterController;
+    [SerializeField] private MovementType movementType;
+    private CharacterController _characterController;
 
     private Rigidbody2D _rb;
     [SerializeField] private float speed = 5f;
@@ -36,7 +36,7 @@ public abstract class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (movementType == MovementType.keyboard)
+        if (movementType == MovementType.Keyboard)
         {
             if (Input.GetButtonDown("Jump") && IsDownGround())
             {
@@ -46,7 +46,7 @@ public abstract class PlayerController : MonoBehaviour
             //keyboardmovement
             x = Input.GetAxis("Horizontal");
 
-            Vector2 move = transform.right * x;
+            // Vector2 move = transform.right * x;
 
             // characterController.Move(move * speed * Time.deltaTime);
 
@@ -56,9 +56,8 @@ public abstract class PlayerController : MonoBehaviour
         }
         else
         {
-            if (movementType == MovementType.controller)
+            if (movementType == MovementType.Controller)
             {
-                //keyboardmovement
                 x = Input.GetAxis("HorizontalGamepad");
                 if (Input.GetButtonDown("JumpGamepad") && IsDownGround())
                 {
@@ -88,8 +87,10 @@ public abstract class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var horizontal = transform.position;
-        Flip(horizontal.x);
+        var horizontal = movementType == MovementType.Controller
+            ? Input.GetAxis("HorizontalGamepad")
+            : Input.GetAxis("Horizontal");
+        Flip(horizontal);
         // _rb.velocity = new Vector2(horizontal, _rb.velocity.y);
         CheckAlive();
     }

@@ -6,7 +6,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1Gamepad"))
         {
             Shoot();
         }
