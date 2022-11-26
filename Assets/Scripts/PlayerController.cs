@@ -56,7 +56,7 @@ public abstract class PlayerController : MonoBehaviour
             // characterController.Move(move * speed * Time.deltaTime);
 
             // characterController.Move(velocity * Time.deltaTime);
-            float horizontal = x * speed;
+            var horizontal = x * speed;
             _rb.AddForce(new Vector2(horizontal, 0));
         }
         else
@@ -69,7 +69,7 @@ public abstract class PlayerController : MonoBehaviour
                     _rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 }
 
-                float horizontal = x * speed;
+                var horizontal = x * speed;
                 _rb.AddForce(new Vector2(horizontal, 0));
             }
         }
