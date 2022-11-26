@@ -5,10 +5,10 @@ using UnityEngine.UI;
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private Transform center;
-    [SerializeField] private float smoothing = 1000f;
+    [SerializeField] private float smoothing = 10f;
 
     void Update()
     {
-        Vector3.Lerp(transform.position, center.position, smoothing);
+        transform.position = Vector3.Lerp(transform.position, center.position, Time.deltaTime * smoothing);
     }
 }
