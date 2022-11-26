@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -24,11 +23,12 @@ public class EnemyController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var player = GameObject.Find("Player");
+        var player = GameObject.FindWithTag("CollectorPlayer");
         var horizontal = player.transform.position;
         var objectHorizontal = transform.position;
-        Flip(horizontal.x - objectHorizontal.x);
-        _rb.velocity = new Vector2(horizontal.x * speed, _rb.velocity.y);
+        var difference = horizontal.x - objectHorizontal.x;
+        Flip(difference);
+        _rb.velocity = new Vector2(difference * speed, _rb.velocity.y);
         CheckAlive();
         CheckWall();
     }
@@ -37,7 +37,6 @@ public class EnemyController : MonoBehaviour
     {
         if (IsDownGround() && IsWallInFront() && !isJump)
         {
-            Debug.Log("jump");
             isJump = true;
             _rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }

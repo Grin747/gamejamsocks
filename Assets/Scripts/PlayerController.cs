@@ -88,9 +88,9 @@ public abstract class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        var horizontal = Input.GetAxis("Horizontal") * speed;
-        Flip(horizontal);
-        _rb.velocity = new Vector2(horizontal, _rb.velocity.y);
+        var horizontal = transform.position;
+        Flip(horizontal.x);
+        // _rb.velocity = new Vector2(horizontal, _rb.velocity.y);
         CheckAlive();
     }
 
