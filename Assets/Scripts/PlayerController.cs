@@ -5,13 +5,13 @@ using UnityEngine.SceneManagement;
 
 public abstract class PlayerController : MonoBehaviour
 {
-    private enum MovementType
+    protected enum MovementType
     {
         Keyboard,
         Controller
     }
 
-    [SerializeField] private MovementType movementType;
+    [SerializeField] protected MovementType movementType;
     private CharacterController _characterController;
 
     private Rigidbody2D _rb;
@@ -20,7 +20,7 @@ public abstract class PlayerController : MonoBehaviour
     private bool _isJump;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform groundCheck;
-    [SerializeField] private int health;
+    [SerializeField] protected int health;
     public EntityFacing Facing { get; private set; }
 
     public void Damage(int damage) => health -= damage;
@@ -36,6 +36,10 @@ public abstract class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire1Gamepad"))
+        {
+            PlayerAction();
+        }
         if (movementType == MovementType.Keyboard)
         {
             if (Input.GetButtonDown("Jump") && IsDownGround())
@@ -70,6 +74,7 @@ public abstract class PlayerController : MonoBehaviour
         }
     }
 
+    protected abstract void PlayerAction();
 
     private void Flip(float horizontal)
     {
