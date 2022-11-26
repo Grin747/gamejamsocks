@@ -56,10 +56,35 @@ public abstract class PlayerController : MonoBehaviour
         }
         else
         {
-            if(movementType == MovementType.controller)
+            if (movementType == MovementType.controller)
             {
                 //keyboardmovement
                 x = Input.GetAxis("HorizontalGamepad");
+                if (Input.GetButtonDown("JumpGamepad") && IsDownGround())
+                {
+                    _rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+                }
+
+                float horizontal = x * speed;
+                _rb.AddForce(new Vector2(horizontal, 0));
+            }
+        }
+    }
+
+
+    private void Flip(float horizontal)
+    {
+        if (Facing == EntityFacing.Right && horizontal < 0)
+        {
+            Facing = EntityFacing.Left;
+            transform.Rotate(0f, 180f, 0f);
+        }
+        else if (Facing == EntityFacing.Left && horizontal > 0)
+        {
+            Facing = EntityFacing.Right;
+            transform.Rotate(0f, 180f, 0f);
+        }
+    }
 
     private void FixedUpdate()
     {
@@ -85,35 +110,6 @@ public abstract class PlayerController : MonoBehaviour
             var enemy = FindObjectOfType<EnemyController>();
             Damage(enemy.damageLevel);
         }
-    }
-
-    private void Flip(float horizontal)
-    {
-        if (Facing == EntityFacing.Right && horizontal < 0)
-        {
-            Facing = EntityFacing.Left;
-            transform.Rotate(0f, 180f, 0f);
-        }
-        else if (Facing == EntityFacing.Left && horizontal > 0)
-        {
-            Facing = EntityFacing.Right;
-            transform.Rotate(0f, 180f, 0f);
-        }
-                if (Input.GetButtonDown("JumpGamepad") && IsDownGround())
-                {
-                    _rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-                }
-                
-                float horizontal = x * speed;
-                _rb.AddForce(new Vector2(horizontal, 0));
-            }
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        //var horizontal = Input.GetAxis("Horizontal") * speed;
-        //_rb.AddForce(new Vector2(horizontal, 0));
     }
 
     private bool IsDownGround() => Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
