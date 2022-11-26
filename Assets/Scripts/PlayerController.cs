@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public abstract class PlayerController : MonoBehaviour
 {
     private Rigidbody2D _rigidbody;
     [SerializeField] private float speed = 5f;
@@ -16,12 +16,16 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        var horizontal = Input.GetAxis("Horizontal") * speed;
-        transform.position += new Vector3(horizontal, 0, 0) * Time.deltaTime * speed;
         if (Input.GetButtonDown("Jump") && IsDownGround())
         {
             _rigidbody.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
+    }
+
+    private void FixedUpdate()
+    {
+        var horizontal = Input.GetAxis("Horizontal") * speed;
+        _rigidbody.AddForce(new Vector2(horizontal, 0));
     }
 
     private bool IsDownGround() => Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
