@@ -7,7 +7,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform center;
     [SerializeField] private float smoothing = 10f;
 
-    void Update()
+    void LateUpdate()
     {
         transform.position = Vector3.Lerp(transform.position, center.position, Time.deltaTime * smoothing);
     }
