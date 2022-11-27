@@ -7,20 +7,24 @@ public class CollectingPlayer : PlayerController
     private bool _isNearCat;
     private bool _isNearRocket;
     private GameObject catNear;
+    private Cat cat;
 
     protected override void PlayerAction()
     {
         if (_isNearCat && Input.GetButtonDown("Fire1"))
         {
             catCount++;
-            (catNear.GetComponent<Cat>()).Meow();
+            cat = catNear.GetComponent<Cat>();
+            cat.Meow();
             StartCoroutine(nameof(TakeCat));
         }
 
         if (_isNearRocket && Input.GetButtonDown("Fire1"))
         {
             GlobalState.CatsCount += catCount;
+            // cat.Meow();
             catCount = 0;
+            cat = null;
         }
     }
 
@@ -40,6 +44,8 @@ public class CollectingPlayer : PlayerController
                 break;
             case  "Rocket":
                 _isNearRocket = true;
+                // if(cat != null)
+                //     other.gameObject.GetComponent<Cat>().Meow();
                 break;
         }
     }

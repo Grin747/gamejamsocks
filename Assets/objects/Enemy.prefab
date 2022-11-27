@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6639450103545301631}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 16e7865dc2bf44c5a90018d2f27995c5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: be09d9f3e3718d04eb437070a63db6bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -130,6 +130,8 @@ MonoBehaviour:
     m_Bits: 64
   groundCheck: {fileID: 6639450104500066483}
   wallCheck: {fileID: 6639450103967893572}
+  leftBar: {fileID: 0}
+  rightBar: {fileID: 0}
   jumpForce: 5
 --- !u!50 &6639450103545301630
 Rigidbody2D:
