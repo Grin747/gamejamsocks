@@ -381,8 +381,14 @@ MonoBehaviour:
     \u044D\u0442\u0438\u0445 \u043F\u0443\u0448\u0438\u0441\u0442\u044B\u0445 \u0436\u0438\u0442\u0435\u043B\u0435\u0439
     \u0438 \u043D\u0435 \u043F\u043E\u0441\u0442\u0440\u0430\u0434\u0430\u0442\u044C
     \u0441\u0430\u043C\u0438\u043C."
-  indexesToSwapPicture: 0400000005000000000000000000000000000000
-  sprites: []
+  indexesToSwapPicture: 0400000005000000080000000c0000001000000015000000
+  sprites:
+  - {fileID: 21300000, guid: d622dfcfdef7d1e41b00f66106de48e3, type: 3}
+  - {fileID: 21300000, guid: 555d1c9e846c4224eb7d1cf3f36eb995, type: 3}
+  - {fileID: 21300000, guid: f9126e1462c965446b9f68aae68fc2d6, type: 3}
+  - {fileID: 21300000, guid: 6904977fc1df0a04f85fa5fcc322c47d, type: 3}
+  - {fileID: 21300000, guid: 2af4b15910d526c4bbf520e7a35737e4, type: 3}
+  - {fileID: 21300000, guid: 9bc2386777532da49b9848685cfa1359, type: 3}
   textSpeed: 0.05
 --- !u!1 &907527014
 GameObject:
@@ -419,8 +425,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 2048, y: 1024}
+  m_AnchoredPosition: {x: -3.9617, y: 0.0092926}
+  m_SizeDelta: {x: 2158.9214, y: 1093.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &907527016
 MonoBehaviour:
