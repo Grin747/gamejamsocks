@@ -1350,7 +1350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   center: {fileID: 1448759826}
-  up: 0
+  up: 5
 --- !u!4 &458959594
 Transform:
   m_ObjectHideFlags: 0
@@ -87100,7 +87100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   center: {fileID: 1336659993}
-  up: 0
+  up: 5
 --- !u!1 &804239216
 GameObject:
   m_ObjectHideFlags: 0
