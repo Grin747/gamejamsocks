@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: de882307d74f8434fa07932a560b20cc
   - enabled: 1
+    path: Assets/Scenes/DialogueWindow.unity
+    guid: f5fef5fba95d55f41a4f026a1934277e
+  - enabled: 1
     path: Assets/Scenes/BlackScreen.unity
     guid: ea324415731c0364aa639b9f046b960d
   - enabled: 1
