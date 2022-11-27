@@ -30,7 +30,6 @@ public class EnemyController : MonoBehaviour
         var difference = horizontal.x - objectHorizontal.x;
         if (Math.Abs(difference) <= 15)
         {
-            Debug.Log("in sight");
             Flip(difference);
             _rb.velocity = new Vector2(difference * speed, _rb.velocity.y);
             CheckAlive();

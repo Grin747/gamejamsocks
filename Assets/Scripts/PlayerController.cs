@@ -1,7 +1,6 @@
 // ReSharper disable ArrangeTypeMemberModifiers
 
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,7 +14,7 @@ public abstract class PlayerController : MonoBehaviour
 
     private Rigidbody2D _rb;
     private EntityFacing _facing;
-    
+
     [SerializeField] protected MovementType movementType;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 10f;
@@ -46,13 +45,13 @@ public abstract class PlayerController : MonoBehaviour
 
     void Update()
     {
-
         if (movementType == MovementType.Keyboard)
         {
             if (Input.GetButtonDown("Jump") && IsDownGround())
             {
                 _rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             }
+
             if (Input.GetButtonDown("Fire1"))
             {
                 PlayerAction();
@@ -67,6 +66,7 @@ public abstract class PlayerController : MonoBehaviour
                     _rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 }
             }
+
             if (Input.GetButtonDown("Fire1Gamepad"))
             {
                 PlayerAction();
@@ -103,7 +103,7 @@ public abstract class PlayerController : MonoBehaviour
     private void CheckAlive()
     {
         if (health > 0) return;
-        
+
         Destroy(gameObject);
         SceneManager.LoadScene(0);
     }
