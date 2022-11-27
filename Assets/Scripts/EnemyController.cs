@@ -67,6 +67,10 @@ public class EnemyController : MonoBehaviour
         {
             var player = col.gameObject.GetComponent<PlayerController>();
             player.Damage(damageLevel);
+
+            var dif = col.collider.gameObject.transform.position.x - gameObject.transform.position.x;
+            col.rigidbody.AddForce(new Vector2(-Mathf.Sign(dif) * 100, 4f), ForceMode2D.Impulse);
+            _rb.AddForce(new Vector2(Mathf.Sign(dif) * 100, 4f), ForceMode2D.Impulse);
         }
     }
 
