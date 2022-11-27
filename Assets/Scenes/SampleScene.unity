@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   center: {fileID: 1448759826}
-  smoothing: 10
+  up: 5
 --- !u!4 &458959594
 Transform:
   m_ObjectHideFlags: 0
@@ -84883,6 +84883,8 @@ MonoBehaviour:
     m_Bits: 64
   groundCheck: {fileID: 387016493}
   wallCheck: {fileID: 874730817}
+  leftBar: {fileID: 0}
+  rightBar: {fileID: 0}
   jumpForce: 10
 --- !u!212 &729160856
 SpriteRenderer:
@@ -85063,7 +85065,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   center: {fileID: 1336659993}
-  smoothing: 10
+  up: 5
 --- !u!1 &874730816
 GameObject:
   m_ObjectHideFlags: 0
@@ -85139,8 +85141,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62a49412469b04423b92da9b7f322fca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 729160852}
   maxEntity: 10
+  entity: {fileID: 729160852}
+  leftBar: {fileID: 0}
+  rightBar: {fileID: 0}
 --- !u!1 &1070734854
 GameObject:
   m_ObjectHideFlags: 0
@@ -103264,6 +103268,7 @@ GameObject:
   - component: {fileID: 1336659991}
   - component: {fileID: 1336659990}
   - component: {fileID: 1336659989}
+  - component: {fileID: 1336659994}
   m_Layer: 0
   m_Name: Collector
   m_TagString: Player
@@ -103283,6 +103288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6853a4a2a50bb44a89db7a6c4650b145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1336659994}
   movementType: 0
   speed: 5
   jumpForce: 15
@@ -103380,15 +103386,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.032362938, a: 1}
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1336659993
@@ -103407,6 +103413,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1336659994
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336659988}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 70c53381feb994fb4af23b6944a197f2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1344516196
 GameObject:
   m_ObjectHideFlags: 0
@@ -104215,6 +104241,7 @@ GameObject:
   - component: {fileID: 1448759823}
   - component: {fileID: 1448759827}
   - component: {fileID: 1448759828}
+  - component: {fileID: 1448759829}
   m_Layer: 0
   m_Name: Shooter
   m_TagString: Player
@@ -104234,6 +104261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c56c350709a4d9182462c5f7812813, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1448759829}
   movementType: 1
   speed: 5
   jumpForce: 15
@@ -104311,7 +104339,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.083632946, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -104373,6 +104401,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 772396617}
   bulletPrefab: {fileID: 6164898363693200786, guid: 24ce51c8831b849a89a6df5c6243e946, type: 3}
+--- !u!95 &1448759829
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448759822}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 614e0bdb9085e45f59102227ab4f2771, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1824654472
 GameObject:
   m_ObjectHideFlags: 0

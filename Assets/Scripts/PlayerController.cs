@@ -1,5 +1,6 @@
 // ReSharper disable ArrangeTypeMemberModifiers
 
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,6 +16,7 @@ public abstract class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     private EntityFacing _facing;
 
+    [SerializeField] private Animator animator;
     [SerializeField] protected MovementType movementType;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 10f;
@@ -97,6 +99,7 @@ public abstract class PlayerController : MonoBehaviour
             : Input.GetAxis("Horizontal");
         Flip(horizontal);
         _rb.velocity = new Vector2(horizontal * speed, _rb.velocity.y);
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
         CheckAlive();
     }
 
