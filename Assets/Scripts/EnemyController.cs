@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -27,10 +28,14 @@ public class EnemyController : MonoBehaviour
         var horizontal = player.transform.position;
         var objectHorizontal = transform.position;
         var difference = horizontal.x - objectHorizontal.x;
-        Flip(difference);
-        _rb.velocity = new Vector2(difference * speed, _rb.velocity.y);
-        CheckAlive();
-        CheckWall();
+        if (Math.Abs(difference) <= 15)
+        {
+            Debug.Log("in sight");
+            Flip(difference);
+            _rb.velocity = new Vector2(difference * speed, _rb.velocity.y);
+            CheckAlive();
+            CheckWall();
+        }
     }
 
     private void CheckWall()
