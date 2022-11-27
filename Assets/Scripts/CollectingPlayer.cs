@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CollectingPlayer : PlayerController
@@ -12,7 +13,8 @@ public class CollectingPlayer : PlayerController
         if (_isNearCat && Input.GetButtonDown("Fire1"))
         {
             catCount++;
-            Destroy(catNear);
+            (catNear.GetComponent<Cat>()).Meow();
+            StartCoroutine(nameof(TakeCat));
         }
 
         if (_isNearRocket && Input.GetButtonDown("Fire1"))
@@ -22,12 +24,17 @@ public class CollectingPlayer : PlayerController
         }
     }
 
+    private IEnumerator TakeCat()
+    {
+        yield return new WaitForSeconds(.7f);
+        Destroy(catNear);
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         switch (other.gameObject.tag)
         {
             case "Cat":
-                Debug.Log("cat near");
                 _isNearCat = true;
                 catNear = other.gameObject;
                 break;
@@ -42,7 +49,6 @@ public class CollectingPlayer : PlayerController
         switch (other.gameObject.tag)
         {
             case "Cat":
-                Debug.Log("exit");
                 _isNearCat = false;
                 catNear = null;
                 break;

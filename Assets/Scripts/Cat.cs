@@ -1,12 +1,20 @@
 using UnityEngine;
+using Random = System.Random;
 
 public class Cat : MonoBehaviour
 {
-    private void OnCollisionStay2D(Collision2D collision)
+    [SerializeField] private AudioClip[] clips;
+    [SerializeField] private AudioSource _source;
+
+    private void Start()
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            
-        }
+        _source = GetComponent<AudioSource>();
+    }
+
+    public void Meow()
+    {
+        int randomValue = new Random().Next(0, 9);
+        _source.clip = clips[randomValue];
+        _source.Play();
     }
 }
