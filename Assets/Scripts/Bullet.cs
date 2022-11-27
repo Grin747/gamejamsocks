@@ -23,6 +23,7 @@ public class Bullet : MonoBehaviour
         {
             var enemyObject = FindObjectOfType<EnemyController>();
             enemyObject.Damage(2);
+            Debug.Log("Enemy damaged");
             Destroy(gameObject);
         }
     }
