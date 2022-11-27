@@ -3,50 +3,61 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private int health;
     private Rigidbody2D _rb;
     private EntityFacing _facing;
+    private bool _isJump;
+    private Transform _target;
+    
+    [SerializeField] private int health;
     [SerializeField] private float speed;
     [SerializeField] public int damageLevel;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform wallCheck;
+    public Transform leftBar;
+    public Transform rightBar;
     [SerializeField] private float jumpForce;
-    private bool isJump = false;
 
     public void Damage(int damage) => health -= damage;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _facing = EntityFacing.Right;
+        _facing = EntityFacing.Left;
+        var player = GameObject.Find("Collector");
+        _target = player.transform;
     }
 
     private void FixedUpdate()
     {
-        var player = GameObject.Find("Collector");
-        var horizontal = player.transform.position;
-        var objectHorizontal = transform.position;
-        var difference = horizontal.x - objectHorizontal.x;
-        if (Math.Abs(difference) <= 15)
+        var targetX = _target.position.x;
+        var selfX = transform.position.x;
+        var difference = targetX - selfX;
+
+        if (targetX < rightBar.position.x && targetX > leftBar.position.x)
         {
             Flip(difference);
-            _rb.velocity = new Vector2(difference * speed, _rb.velocity.y);
-            CheckAlive();
-            CheckWall();
+            _rb.velocity = new Vector2(Mathf.Sign(difference) * speed, _rb.velocity.y);
         }
+        else
+        {
+            
+        }
+        
+        CheckAlive();
+        CheckWall();
     }
 
     private void CheckWall()
     {
-        if (IsDownGround() && IsWallInFront() && !isJump)
+        if (IsDownGround() && IsWallInFront() && !_isJump)
         {
-            isJump = true;
+            _isJump = true;
             _rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
-        else if (isJump)
+        else if (_isJump)
         {
-            isJump = false;
+            _isJump = false;
         }
     }
 
