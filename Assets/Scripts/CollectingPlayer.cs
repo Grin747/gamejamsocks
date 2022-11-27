@@ -3,31 +3,48 @@ using UnityEngine;
 public class CollectingPlayer : PlayerController
 {
     [SerializeField] private int catCount;
-    private bool isNearCat = false;
+    private bool _isNearCat;
+    private bool _isNearRocket;
 
     protected override void PlayerAction()
     {
-        if (Input.GetButtonDown("Fire1") && isNearCat)
+        if (_isNearCat && Input.GetButtonDown("Fire1"))
         {
             catCount++;
+        }
+
+        if (_isNearRocket && Input.GetButtonDown("Fire1"))
+        {
+            GlobalState.CatsCount += catCount;
+            catCount = 0;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.tag.Equals("Cat"))
+        switch (other.gameObject.tag)
         {
-            Debug.Log("cat near");
-            isNearCat = true;
+            case "Cat":
+                Debug.Log("cat near");
+                _isNearCat = true;
+                break;
+            case  "Rocket":
+                _isNearRocket = true;
+                break;
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.tag.Equals("Cat"))
+        switch (other.gameObject.tag)
         {
-            Debug.Log("exit");
-            isNearCat = false;
+            case "Cat":
+                Debug.Log("exit");
+                _isNearCat = false;
+                break;
+            case "Rocket":
+                _isNearRocket = false;
+                break;
         }
     }
 }

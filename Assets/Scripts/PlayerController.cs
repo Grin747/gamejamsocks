@@ -1,5 +1,7 @@
 // ReSharper disable ArrangeTypeMemberModifiers
 
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,35 +13,39 @@ public abstract class PlayerController : MonoBehaviour
         Controller
     }
 
+    private Rigidbody2D _rb;
+    private EntityFacing _facing;
+    
     [SerializeField] protected MovementType movementType;
-    private CharacterController _characterController;
-
-    protected Rigidbody2D _rb;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float jumpForce = 10f;
-    private bool _isJump;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform groundCheck;
-    [SerializeField] protected int health;
-    public EntityFacing Facing { get; private set; }
+    [SerializeField] protected int health = 6;
+    public bool IsTeleporting { get; private set; }
+
+    public void Teleport()
+    {
+        IsTeleporting = true;
+        StartCoroutine(nameof(TeleportDelay));
+    }
+
+    private IEnumerator TeleportDelay()
+    {
+        yield return new WaitForSeconds(.2f);
+        IsTeleporting = false;
+    }
 
     public void Damage(int damage) => health -= damage;
-    private bool isOnGround;
-    private float x;
-    private Vector2 velocity;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
-        Facing = EntityFacing.Right;
+        _facing = EntityFacing.Right;
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire1Gamepad"))
-        {
-            PlayerAction();
-        }
 
         if (movementType == MovementType.Keyboard)
         {
@@ -47,30 +53,23 @@ public abstract class PlayerController : MonoBehaviour
             {
                 _rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             }
-
-            //keyboardmovement
-            x = Input.GetAxis("Horizontal");
-
-            // Vector2 move = transform.right * x;
-
-            // characterController.Move(move * speed * Time.deltaTime);
-
-            // characterController.Move(velocity * Time.deltaTime);
-            var horizontal = x * speed;
-            _rb.AddForce(new Vector2(horizontal, 0));
+            if (Input.GetButtonDown("Fire1"))
+            {
+                PlayerAction();
+            }
         }
         else
         {
             if (movementType == MovementType.Controller)
             {
-                x = Input.GetAxis("HorizontalGamepad");
                 if (Input.GetButtonDown("JumpGamepad") && IsDownGround())
                 {
                     _rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 }
-
-                var horizontal = x * speed;
-                _rb.AddForce(new Vector2(horizontal, 0));
+            }
+            if (Input.GetButtonDown("Fire1Gamepad"))
+            {
+                PlayerAction();
             }
         }
     }
@@ -79,35 +78,34 @@ public abstract class PlayerController : MonoBehaviour
 
     private void Flip(float horizontal)
     {
-        if (Facing == EntityFacing.Right && horizontal < 0)
+        if (_facing == EntityFacing.Right && horizontal < 0)
         {
-            Facing = EntityFacing.Left;
+            _facing = EntityFacing.Left;
             transform.Rotate(0f, 180f, 0f);
         }
-        else if (Facing == EntityFacing.Left && horizontal > 0)
+        else if (_facing == EntityFacing.Left && horizontal > 0)
         {
-            Facing = EntityFacing.Right;
+            _facing = EntityFacing.Right;
             transform.Rotate(0f, 180f, 0f);
         }
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         var horizontal = movementType == MovementType.Controller
             ? Input.GetAxis("HorizontalGamepad")
             : Input.GetAxis("Horizontal");
         Flip(horizontal);
-        // _rb.velocity = new Vector2(horizontal, _rb.velocity.y);
+        _rb.velocity = new Vector2(horizontal * speed, _rb.velocity.y);
         CheckAlive();
     }
 
     private void CheckAlive()
     {
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-            SceneManager.LoadScene(0);
-        }
+        if (health > 0) return;
+        
+        Destroy(gameObject);
+        SceneManager.LoadScene(0);
     }
 
     private bool IsDownGround() => Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
