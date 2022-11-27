@@ -108365,7 +108365,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: 585f1a8703bf423f829a7c2da0db1394, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &1336659991
 BoxCollider2D:
@@ -109521,7 +109521,7 @@ MonoBehaviour:
   animator: {fileID: 1448759830}
   movementType: 1
   speed: 5
-  jumpForce: 15
+  jumpForce: 17
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -109642,7 +109642,7 @@ Rigidbody2D:
   m_Material: {fileID: 6200000, guid: 585f1a8703bf423f829a7c2da0db1394, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &1448759828
 MonoBehaviour:
