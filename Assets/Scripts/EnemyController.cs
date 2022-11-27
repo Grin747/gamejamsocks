@@ -50,8 +50,8 @@ public class EnemyController : MonoBehaviour
     {
         if (col.gameObject.tag.Equals("Player"))
         {
-            var enemy = FindObjectOfType<EnemyController>();
-            Damage(enemy.damageLevel);
+            var player = col.gameObject.GetComponent<PlayerController>();
+            player.Damage(damageLevel);
         }
     }
 

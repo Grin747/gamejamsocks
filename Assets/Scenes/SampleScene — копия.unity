@@ -248,7 +248,7 @@ Camera:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 0.5
+    width: 0.499
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -3651,7 +3651,7 @@ MonoBehaviour:
   jumpForce: 15
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   groundCheck: {fileID: 598736002}
   health: 15
 --- !u!1 &1448759822
@@ -3885,9 +3885,9 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.5
+    x: 0.501
     y: 0
-    width: 0.5
+    width: 0.499
     height: 1
   near clip plane: 0.3
   far clip plane: 1000

@@ -1,5 +1,7 @@
 // ReSharper disable ArrangeTypeMemberModifiers
 
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,6 +24,19 @@ public abstract class PlayerController : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] protected int health;
     public EntityFacing Facing { get; private set; }
+    public bool IsTeleporting { get; private set; }
+
+    public void Teleport()
+    {
+        IsTeleporting = true;
+        StartCoroutine("TeleportDelay");
+    }
+
+    private IEnumerator TeleportDelay()
+    {
+        yield return new WaitForSeconds(.2f);
+        IsTeleporting = false;
+    }
 
     public void Damage(int damage) => health -= damage;
     private bool isOnGround;
